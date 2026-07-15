@@ -1,0 +1,13 @@
+# Dependências instaladas
+node_modules/
+
+# Arquivo de variáveis de ambiente com segredos
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
