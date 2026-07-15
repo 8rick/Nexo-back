@@ -10,6 +10,7 @@ if (!OPENAI_API_KEY || OPENAI_API_KEY.includes('suachaveaqui')) {
 
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
+  baseURL: 'https://api.groq.com/openai/v1', // 👈 Apontando para os servidores da Groq
 });
 
 module.exports = openai;

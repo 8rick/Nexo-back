@@ -19,12 +19,12 @@ Regras de resposta:
 4. Responda em português de forma direta, sem enrolações.
 `.trim();
 
-    console.log('[INFO] Iniciando geração de pitch com OpenAI (gpt-4o-mini)...');
+    console.log('[INFO] Iniciando geração de pitch com Groq (Llama 3)...');
     const startTime = Date.now();
 
     try {
       const response = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
+        model: 'llama3-70b-8192', // 👈 Modelo super rápido da Groq
         messages: [
           {
             role: 'system',
