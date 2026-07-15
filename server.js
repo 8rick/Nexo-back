@@ -29,6 +29,16 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 
 // ── Rotas ─────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Nexo API está rodando! 🚀',
+    endpoints: {
+      health: 'GET /api/health',
+      analyze: 'POST /api/analyze'
+    }
+  });
+});
+
 app.use('/api', analyzeRoutes);
 
 // ── Tratamento de Erros ───────────────────────────────────────
