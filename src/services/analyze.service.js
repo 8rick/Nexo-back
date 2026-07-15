@@ -1,4 +1,4 @@
-const model = require('../config/gemini');
+const openai = require('../config/openai');
 
 class AnalyzeService {
   async generatePitch(resume, jobDescription) {
@@ -19,20 +19,34 @@ Regras de resposta:
 4. Responda em português de forma direta, sem enrolações.
 `.trim();
 
-    console.log('[INFO] Iniciando geração de pitch com Gemini...');
+    console.log('[INFO] Iniciando geração de pitch com OpenAI (gpt-4o-mini)...');
     const startTime = Date.now();
 
     try {
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const pitch = response.text();
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'Você é um Tech Recruiter experiente.',
+          },
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        temperature: 0.7,
+        max_tokens: 2048,
+      });
+
+      const pitch = response.choices[0].message.content;
 
       const elapsed = Date.now() - startTime;
       console.log(`[INFO] Pitch gerado com sucesso em ${elapsed}ms.`);
 
       return pitch;
     } catch (error) {
-      console.error('[ERROR] Falha ao chamar a API do Gemini:', error.message);
+      console.error('[ERROR] Falha ao chamar a API da OpenAI:', error.message);
       
       // Vamos lançar o erro para o controller decidir como lidar com ele e formatar o status HTTP
       const err = new Error('Falha na geração do pitch');

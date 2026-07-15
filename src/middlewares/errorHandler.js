@@ -9,23 +9,23 @@ const notFoundHandler = (_req, res) => {
 // Middleware global de tratamento de erros (500, etc)
 // eslint-disable-next-line no-unused-vars
 const globalErrorHandler = (err, _req, res, _next) => {
-  // Vamos extrair o erro original se veio do Gemini (Service)
+  // Vamos extrair o erro original se veio da OpenAI (Service)
   const originalError = err.originalError || err;
 
   console.error('[ERROR] Erro capturado pelo middleware global:', originalError.message);
 
-  // Tratamento específico de erros da API do Gemini
-  if (originalError.message?.includes('API_KEY_INVALID') || originalError.status === 400) {
+  // Tratamento específico de erros da API da OpenAI
+  if (originalError.status === 401) {
     return res.status(500).json({
       error:   'Erro de configuração do servidor.',
-      details: 'A chave da API de IA é inválida. Contate o suporte.',
+      details: 'A chave da API da OpenAI é inválida ou incorreta. Contate o suporte.',
     });
   }
 
   if (originalError.status === 429) {
     return res.status(429).json({
-      error:   'Limite de requisições atingido.',
-      details: 'Muitas requisições simultâneas. Tente novamente em alguns segundos.',
+      error:   'Limite de requisições ou saldo atingido.',
+      details: 'A conta da OpenAI pode estar sem saldo ou recebendo muitas requisições simultâneas.',
     });
   }
 
