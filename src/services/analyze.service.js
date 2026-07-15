@@ -24,7 +24,7 @@ Regras de resposta:
 
     try {
       const response = await openai.chat.completions.create({
-        model: 'llama-3.3-70b-versatile', // 👈 Modelo atualizado da Groq
+        model: 'llama-3.3-70b-versatile', 
         messages: [
           {
             role: 'system',
