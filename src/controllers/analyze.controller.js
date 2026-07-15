@@ -5,7 +5,7 @@ class AnalyzeController {
     try {
       const { resume, jobDescription } = req.body;
 
-      // ── Validação dos campos obrigatórios ─────────────────────
+      // Validação dos campos obrigatórios
       if (!resume || !jobDescription) {
         const missing = [];
         if (!resume)         missing.push('"resume"');
@@ -17,7 +17,7 @@ class AnalyzeController {
         });
       }
 
-      // ── Validação básica de conteúdo (evitar strings vazias) ──
+      // Validação básica de conteúdo
       if (resume.trim().length < 20) {
         return res.status(400).json({
           error:   'Currículo inválido.',
